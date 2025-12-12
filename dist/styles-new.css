@@ -326,281 +326,281 @@ input[type="text"] {
 .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #f3fne;
-}display: no
-    ntrols {) #touch-coscreenot(#game-
-.screen:nlock;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
 }
-play: b    dis
-controls {*/
-#touch- ゲーム画面でのみ表示 
 
-/*    }
-}95);
-ale(0.form: sctrans
-        tn:active {ontrol-b    .c 
+.loading-message {
+    font-size: 1.1em;
+    color: #333;
+    font-weight: bold;
+}
 
+/* リーダーボード表示ボタンのスタイル */
+.view-leaderboard-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.view-leaderboard-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+/* タッチコントロール用スタイル - 新しい円形レイアウト */
+#game-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#touch-controls {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    text-align: center;
+}
+
+#controls-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+/* 新しい円形レイアウト */
+#dpad-container {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 20px auto;
+    display: block;
+}
+
+/* 中央の円を非表示 */
+#dpad-center {
+    display: none;
+}
+
+/* ボタンの配置 - 中央の円の周りに配置 */
+#btn-up {
+    position: absolute !important;
+    top: 0px;
+    left: 80px;
+    margin: 0;
+}
+
+#btn-down {
+    position: absolute !important;
+    bottom: 0px;
+    left: 80px;
+    margin: 0;
+}
+
+#btn-left {
+    position: absolute !important;
+    left: 0px;
+    top: 80px;
+    margin: 0;
+}
+
+#btn-right {
+    position: absolute !important;
+    right: 0px;
+    top: 80px;
+    margin: 0;
+}
+
+/* 古いレイアウトを非表示 */
+#dpad-middle {
+    display: none;
+}
+
+/* ボタンのスタイル */
+.control-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 3px solid #5a67d8;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    z-index: 2;
+}
+
+/* ボタンのホバー効果 */
+#btn-up:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+#btn-down:hover {
+    transform: translateY(3px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+#btn-left:hover {
+    transform: translateX(-3px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+#btn-right:hover {
+    transform: translateX(3px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+/* ボタンのアクティブ効果 */
+.control-btn:active,
+.control-btn.pressed {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+#btn-up:active,
+#btn-up.pressed {
+    transform: translateY(2px);
+}
+
+#btn-down:active,
+#btn-down.pressed {
+    transform: translateY(-2px);
+}
+
+#btn-left:active,
+#btn-left.pressed {
+    transform: translateX(2px);
+}
+
+#btn-right:active,
+#btn-right.pressed {
+    transform: translateX(-2px);
+}
+
+#control-instructions {
+    font-size: 0.9em;
+    color: #6c757d;
+    line-height: 1.4;
+    margin-top: 20px;
+}
+
+#control-instructions p {
+    margin: 5px 0;
+}
+
+/* タブレット・モバイル対応 */
+@media (max-width: 1024px) {
+    #game-layout {
+        flex-direction: column;
+        align-items: center;
     }
-   00%);2 1a 0%, #764ba5deg, #667eeent(13adiar-grlineound: ckgr        ba, 0.25);
-a(0, 0, 0gb6px 12px rw: 0    box-shado  
-   sform: none;ran        tver {
-l-btn:ho   .controarse) {
- (pointer: cone) and no: (hover */
-@media 用の追加スタイルバイス/* タッチデ
-
-  }
-}
-  m; 0.8e  font-size:
-      tructions {-insrolcont  
-    #  }
-  : 1em;
-  font-size        {
- s-title  #control    
-      }
-p: 67px;
-
-        to 0px;  right:{
-      -right 
-    #btn
-     }  7px;
-       top: 6: 0px;
-        left {
-   #btn-left      
- px;
+    
+    #game-canvas {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
     }
-left: 67        
-bottom: 0px;         {
-  #btn-down    
-  
-
-    }px;  left: 67   : 0px;
-         top{
-  -up 
-    #btn
-      }
-  width: 2px;border-    m;
-    e: 1.6e-siz      fontx;
-  eight: 65p;
-        h5px  width: 6      n {
-l-bt .contro     
-     }
- one;
-  display: n{
-      er entdpad-c
-    #
     
-    }0px;t: 20igh   hepx;
-     : 200    width   {
- -container   #dpad }
+    #touch-controls {
+        width: 100%;
+        max-width: 320px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #touch-controls {
+        padding: 15px;
+        min-width: 200px;
+    }
     
-  
-   200px;n-width: mi       g: 15px;
- ddin      patrols {
-  ch-con    #tou 768px) {
-max-width:@media (
-}
-}
-    op: 20px;
- margin-t;
-        320pxmax-width:        : 100%;
- width     
-  trols {h-con    #touc   
-}
-    t: auto;
-        heighx;
-  600px-width:  ma0%;
-         width: 10   canvas {
-  
-    #game-   
- er;
-    }entign-items: c      alcolumn;
-  rection:    flex-di  
-   t { #game-layoux) {
-   : 1024pa (max-width */
-@mediット・モバイル対応* タブレ
-/0;
-}
-gin: 5px mar{
-    s p ructioncontrol-inst0px;
-}
-
-# 2gin-top:4;
-    mareight: 1.line-h
-    #6c757d;
-    color: em;t-size: 0.9  fonions {
-  l-instructntro
-}
-
-#coeX(-2px); translatransform:d {
-    t.presse-right
-#btnght:active,
-
-#btn-ri;
-}eX(2px)slatm: tranansfor   trsed {
- esprt.,
-#btn-leftive:acft
-
-#btn-le(-2px);
-}eYslat tranransform:d {
-    tseresbtn-down.pve,
-#tn-down:acti
-#b;
-}
-slateY(2px)form: tran{
-    transed p.pressbtn-uactive,
-#p:btn-u);
-}
-
-##6b46c1 100%8 0%, #5a67dg, ient(135degradear-ound: linackgr);
-    b, 0, 0, 0.3ba(0 6px rg0 3pxdow:     box-shapressed {
-ntrol-btn.active,
-.coontrol-btn:果 */
-.cアクティブ効
-/* ボタンの0%);
-}
-6 10 #8b5cfc3aed 0%,5deg, #7t(13near-gradiennd: ligrou  back
-  234, 0.4);, 126, ba(102x rgpx 16p-shadow: 0 8
-    box);lateX(3px transansform:trr {
-    -right:hovetn;
-}
-
-#b0%) 10 #8b5cf6d 0%,#7c3aet(135deg, radienar-gd: line   backgroun4, 0.4);
- 02, 126, 236px rgba(1ow: 0 8px 1adbox-sh   X(-3px);
- translateorm: 
-    transfft:hover {n-le;
-}
-
-#bt100%)0%, #8b5cf6 d 7c3ae, #ent(135deglinear-gradibackground: 
-    , 0.4); 126, 234x rgba(102,x 16pdow: 0 8pox-sha   b3px);
- anslateY(orm: trsftran
-    wn:hover {-dotn%);
-}
-
-#b #8b5cf6 100#7c3aed 0%,t(135deg, diengraear-nd: lin   backgrou4, 0.4);
- 6, 23gba(102, 12px row: 0 8px 16 box-shad3px);
-   translateY(-ransform:  {
-    tverup:hon-効果 */
-#btタンのホバー
-}
-
-/* ボdex: 2;in   z-e;
- t: nonallouuch-cebkit-tone;
-    -wr-select: nouseit- -webk;
-   elect: none  user-s);
-  0, 0.25, x rgba(0, 0 12p 0 6pxhadow:box-sease;
-    l 0.15s ion: al transitinter;
-   cursor: pold;
-     bot-weight: fon
-   size: 2em;
-    font-d #5a67d8;3px solirder:     bo: white;
-lorco%);
-    ba2 100 #764%,ea 05deg, #667ent(13ar-gradieound: linebackgr50%;
-    s: diuorder-ra0px;
-    b: 8
-    heightdth: 80px;
-    wil-btn {troル */
-.conタンのスタイ
-/* ボ: none;
-}
-ayispl  d  dle {
-pad-midを非表示 */
-#dレイアウト 古い
-}
-
-/*argin: 0;   m 80px;
-     top:ght: 0px;
-t;
-    ri!importan absolute position:ht {
+    #dpad-container {
+        width: 200px;
+        height: 200px;
+    }
     
-
-#btn-rig}: 0;
-gin   mar
-  top: 80px; 0px;
-   left:tant;
-    e !impor absolutposition:left {
+    #dpad-center {
+        display: none;
+    }
     
-
-#btn-0;
-}  margin: px;
-  t: 80   lefm: 0px;
- 
-    bottoportant;lute !imsosition: abn {
-    podow
-#btn-
-}
-: 0;
-    marginleft: 80px; 0px;
+    .control-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 1.6em;
+        border-width: 2px;
+    }
     
-    top: !important;on: absoluteti  posi
-  tn-up {/
-#b円の周りに配置 *タンの配置 - 中央の/* ボ}
-
-ay: none;
-displer {
-    d-cent */
-#dpa* 中央の円を非表示
-/;
-}
-splay: block dix auto;
-    margin: 20px;
-   ht: 240pheig0px;
-    : 24 widthtive;
-   : rela    position
--container {/
-#dpad円形レイアウト *
-}
-
-/* 新しい 15px;rgin-bottom:;
-    mar: #667eead;
-    cologht: bol   font-wei: 1.1em;
- ze font-siitle {
-   ls-t
-
-#controter;
-}ign: cent-alex t  h: 250px;
-  min-widt 0.1);
-   gba(0, 0, 0, 4px 15px rw: 0ox-shado
-    bng: 20px;;
-    paddi5pxus: 1-radirderbo
-    ecef 100%);%, #e9, #f8f9fa 0ient(135degr-gradd: linea   backgrounls {
- -controtouch
+    #btn-up {
+        top: 0px;
+        left: 67px;
+    }
+    
+    #btn-down {
+        bottom: 0px;
+        left: 67px;
+    }
+    
+    #btn-left {
+        left: 0px;
+        top: 67px;
+    }
+    
+    #btn-right {
+        right: 0px;
+        top: 67px;
+    }
+    
+    #controls-title {
+        font-size: 1em;
+    }
+    
+    #control-instructions {
+        font-size: 0.8em;
+    }
 }
 
-#wrap: wrap;flex-  0px;
-  ap: 2art;
-    gms: flex-stteign-iter;
-    al cenent:justify-contflex;
-     display: ayout {
-   -lウト */
-#gameイアしい円形レタイル - 新コントロール用スタッチ}
-
-/* );
-80, 0.4(76, 175, 15px rgbadow: 0 5px    box-sha(-2px);
- lateYns transform:{
-    tratn:hover ard-bderbo
-.view-lea 10px;
-}
-gin-top:    mar0.2s ease;
-n: all sitio  traninter;
-  sor: po
-    cur20px;adius: order-rm;
-    bont-size: 1e   f
- 20px;10px adding:     pnone;
-r:    bordewhite;
- lor: );
-    co100%, #45a049 50 0%eg, #4caf35d-gradient(1inearund: lkgro{
-    bac-btn oard-leaderb*/
-.view示ボタンのスタイル  リーダーボード表;
+/* タッチデバイス用の追加スタイル */
+@media (hover: none) and (pointer: coarse) {
+    .control-btn:hover {
+        transform: none;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .control-btn:active {
+        transform: scale(0.95);
+    }
 }
 
-/* boldeight:-wfont;
-    or: #333
-    col1em;nt-size: 1. foe {
-   messagoading-
+/* ゲーム画面でのみ表示 */
+#touch-controls {
+    display: block;
 }
 
-.lauto 20px;  margin: 0   nfinite;
-inear in 1s lation: spianim%;
-    radius: 50order-;
-    b667eeapx solid #op: 4r-t  borde3;
-  3f
+.screen:not(#game-screen) #touch-controls {
+    display: none;
+}
