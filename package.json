@@ -27,12 +27,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/wire-game-project.git"
+    "url": "https://github.com/ryosuke1978/wire-game-project.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/wire-game-project/issues"
+    "url": "https://github.com/ryosuke1978/wire-game-project/issues"
   },
-  "homepage": "https://github.com/yourusername/wire-game-project#readme",
+  "homepage": "https://github.com/ryosuke1978/wire-game-project#readme",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
