@@ -17,8 +17,15 @@
 
 ## 🎯 操作方法
 
+### キーボード操作
 - **移動**: 矢印キー（↑↓←→）またはWASDキー
 - **動作**: キーを押している間だけキャラクターが移動
+
+### タッチ操作（タブレット・モバイル）
+- **タッチコントロール**: 画面右側の方向ボタン（↑↓←→）
+- **動作**: ボタンを押している間だけキャラクターが移動
+
+### 共通
 - **目標**: 白い円形の通路内を移動してオレンジのゴールに到達
 
 ## 🛠️ 技術スタック
@@ -149,7 +156,10 @@ npm run test:coverage
 
 ## 🌐 デモ
 
-ライブデモ: http://iraira-web-game-dev.s3-website-ap-northeast-1.amazonaws.com
+- **HTTPS版（推奨）**: https://d255fiz2q9u3fd.cloudfront.net
+- **HTTP版**: http://iraira-web-game-dev.s3-website-ap-northeast-1.amazonaws.com
+
+HTTPS版はCloudFront CDNを使用しており、高速で安全にアクセスできます。
 
 ## 📄 ライセンス
 
