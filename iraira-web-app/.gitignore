@@ -1,0 +1,34 @@
+# 依存関係 / Dependencies
+node_modules/
+package-lock.json
+
+# テストカバレッジ / Test coverage
+coverage/
+
+# ビルド出力 / Build output
+dist/
+build/
+
+# SAM関連 / SAM related
+lambda/.aws-sam/
+lambda/packaged-template.yaml
+lambda/samconfig.toml.bak
+
+# 環境変数 / Environment variables
+.env
+.env.local
+
+# IDEファイル / IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ログ / Logs
+*.log
+npm-debug.log*
+
+# OS固有ファイル / OS specific files
+.DS_Store
+Thumbs.db

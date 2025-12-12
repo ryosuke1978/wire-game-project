@@ -1,0 +1,36 @@
+{
+  "CallerReference": "iraira-web-game-2025-12-12",
+  "Comment": "Iraira Wire Game CloudFront Distribution",
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "S3-iraira-web-game-dev",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "MinTTL": 0,
+    "ForwardedValues": {
+      "QueryString": false,
+      "Cookies": {
+        "Forward": "none"
+      }
+    },
+    "TrustedSigners": {
+      "Enabled": false,
+      "Quantity": 0
+    }
+  },
+  "Origins": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Id": "S3-iraira-web-game-dev",
+        "DomainName": "iraira-web-game-dev.s3-website-ap-northeast-1.amazonaws.com",
+        "CustomOriginConfig": {
+          "HTTPPort": 80,
+          "HTTPSPort": 443,
+          "OriginProtocolPolicy": "http-only"
+        }
+      }
+    ]
+  },
+  "Enabled": true,
+  "DefaultRootObject": "index.html",
+  "PriceClass": "PriceClass_All"
+}

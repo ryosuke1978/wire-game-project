@@ -1,0 +1,38 @@
+{
+  "name": "iraira-web-app",
+  "version": "1.0.0",
+  "description": "キーボード操作イライラ棒ゲーム - Keyboard-controlled wire game",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "dev": "node server.js",
+    "build": "node scripts/build-frontend.js",
+    "deploy:backend": "node scripts/deploy-backend.js",
+    "deploy:frontend": "npm run build && node scripts/sync-s3.js",
+    "deploy:all": "node scripts/deploy-all.js",
+    "invalidate": "node scripts/invalidate-cloudfront.js",
+    "create:cloudfront": "node scripts/create-cloudfront.js",
+    "no-cache": "node scripts/set-no-cache.js",
+    "test:deployment": "node scripts/test-deployment.js",
+    "setup:windows": "node scripts/setup-windows.js",
+    "setup": "node scripts/setup-windows.js",
+    "env:load": "node scripts/load-env.js",
+    "test:aws": "node scripts/test-aws-auth.js"
+  },
+  "keywords": ["game", "canvas", "wire-game", "iraira"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@jest/globals": "^29.7.0",
+    "babel-jest": "^29.7.0",
+    "fast-check": "^3.15.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,40 @@
+{
+  "name": "wire-game-project",
+  "version": "1.0.0",
+  "description": "キーボード操作によるブラウザベースのイライラ棒ゲーム",
+  "main": "iraira-web-app/dist/index.html",
+  "scripts": {
+    "install:all": "cd iraira-web-app && npm install && cd lambda && npm install",
+    "dev": "cd iraira-web-app && npm run dev",
+    "build": "cd iraira-web-app && npm run build",
+    "test": "cd iraira-web-app && npm test",
+    "test:watch": "cd iraira-web-app && npm run test:watch",
+    "test:coverage": "cd iraira-web-app && npm run test:coverage",
+    "deploy:backend": "cd iraira-web-app && npm run deploy:backend",
+    "deploy:frontend": "cd iraira-web-app && npm run deploy:frontend",
+    "deploy:all": "cd iraira-web-app && npm run deploy:all"
+  },
+  "keywords": [
+    "game",
+    "javascript",
+    "html5-canvas",
+    "aws-lambda",
+    "dynamodb",
+    "wire-game",
+    "browser-game"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/wire-game-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/wire-game-project/issues"
+  },
+  "homepage": "https://github.com/yourusername/wire-game-project#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

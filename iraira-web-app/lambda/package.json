@@ -1,0 +1,29 @@
+{
+  "name": "iraira-game-lambda",
+  "version": "1.0.0",
+  "description": "Lambda functions for Iraira Wire Game",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest --testPathIgnorePatterns=integration.test.js",
+    "test:integration": "API_ENDPOINT=https://rpxmv6a1kb.execute-api.ap-northeast-1.amazonaws.com/dev jest integration.test.js --runInBand",
+    "test:all": "npm run test:unit && npm run test:integration",
+    "start": "sam local start-api",
+    "build": "sam build",
+    "deploy": "sam deploy --guided",
+    "deploy:dev": "sam deploy --stack-name iraira-wire-game-dev --parameter-overrides Environment=dev --capabilities CAPABILITY_IAM --no-confirm-changeset",
+    "deploy:prod": "sam deploy --stack-name iraira-wire-game-prod --parameter-overrides Environment=prod --capabilities CAPABILITY_IAM --no-confirm-changeset",
+    "logs": "sam logs --stack-name iraira-wire-game-dev --tail",
+    "delete": "aws cloudformation delete-stack --stack-name iraira-wire-game-dev"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1490.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "fast-check": "^3.15.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

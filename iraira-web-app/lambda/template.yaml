@@ -1,0 +1,230 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Iraira Wire Game Lambda Functions
+
+Globals:
+  Function:
+    Timeout: 30
+    Runtime: nodejs18.x
+    MemorySize: 256
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref ScoresTable
+        CORS_ORIGIN: !Sub 'https://${Environment}.iraira-game.com'
+        NODE_ENV: !Ref Environment
+    Tracing: Active
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: Environment name
+
+Resources:
+  # DynamoDB Table for storing scores
+  ScoresTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'wire-game-scores-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: difficulty
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: N
+        - AttributeName: playerName
+          AttributeType: S
+      KeySchema:
+        - AttributeName: difficulty
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: PlayerIndex
+          KeySchema:
+            - AttributeName: playerName
+              KeyType: HASH
+            - AttributeName: timestamp
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  # API Gateway
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Environment
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+        AllowOrigin: "'*'"
+        MaxAge: "'3600'"
+      MethodSettings:
+        - ResourcePath: "/*"
+          HttpMethod: "*"
+          ThrottlingRateLimit: 1000
+          ThrottlingBurstLimit: 2000
+
+  # Submit Score Lambda Function
+  SubmitScoreFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'iraira-submit-score-${Environment}'
+      CodeUri: src/handlers/
+      Handler: submitScore.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ScoresTable
+        - CloudWatchLogsFullAccess
+        - AWSXRayDaemonWriteAccess
+      Events:
+        SubmitScore:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /scores
+            Method: post
+
+  # Get Leaderboard Lambda Function
+  GetLeaderboardFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'iraira-get-leaderboard-${Environment}'
+      CodeUri: src/handlers/
+      Handler: getLeaderboard.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ScoresTable
+        - CloudWatchLogsFullAccess
+        - AWSXRayDaemonWriteAccess
+      Events:
+        GetLeaderboard:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /leaderboard
+            Method: get
+            RequestParameters:
+              - method.request.querystring.difficulty:
+                  Required: false
+              - method.request.querystring.limit:
+                  Required: false
+
+  # Get Player History Lambda Function
+  GetPlayerHistoryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'iraira-get-player-history-${Environment}'
+      CodeUri: src/handlers/
+      Handler: getPlayerHistory.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ScoresTable
+        - CloudWatchLogsFullAccess
+        - AWSXRayDaemonWriteAccess
+        - Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:Query
+            Resource: !GetAtt ScoresTable.Arn
+          - Effect: Allow
+            Action:
+              - dynamodb:Query
+            Resource: !Sub "${ScoresTable.Arn}/index/PlayerIndex"
+      Events:
+        GetPlayerHistory:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /history
+            Method: get
+            RequestParameters:
+              - method.request.querystring.playerName:
+                  Required: true
+
+  # CloudWatch Alarms for monitoring
+  SubmitScoreErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub 'iraira-submit-score-errors-${Environment}'
+      AlarmDescription: 'High error rate for Submit Score function'
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref SubmitScoreFunction
+
+  ApiGateway5xxAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub 'iraira-api-5xx-errors-${Environment}'
+      AlarmDescription: 'High 5xx error rate for API Gateway'
+      MetricName: 5XXError
+      Namespace: AWS/ApiGateway
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Ref ApiGateway
+
+  DynamoDBThrottleAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub 'iraira-dynamodb-throttles-${Environment}'
+      AlarmDescription: 'DynamoDB throttling events'
+      MetricName: ThrottledRequests
+      Namespace: AWS/DynamoDB
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: TableName
+          Value: !Ref ScoresTable
+
+Outputs:
+  ApiGatewayEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/${Environment}"
+    Export:
+      Name: !Sub "${AWS::StackName}-ApiEndpoint"
+  
+  ScoresTableName:
+    Description: "DynamoDB table name for scores"
+    Value: !Ref ScoresTable
+    Export:
+      Name: !Sub "${AWS::StackName}-ScoresTable"
+
+  SubmitScoreFunctionArn:
+    Description: "Submit Score Lambda Function ARN"
+    Value: !GetAtt SubmitScoreFunction.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-SubmitScoreFunction"
+
+  GetLeaderboardFunctionArn:
+    Description: "Get Leaderboard Lambda Function ARN"
+    Value: !GetAtt GetLeaderboardFunction.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-GetLeaderboardFunction"
+
+  GetPlayerHistoryFunctionArn:
+    Description: "Get Player History Lambda Function ARN"
+    Value: !GetAtt GetPlayerHistoryFunction.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-GetPlayerHistoryFunction"
